@@ -9,7 +9,7 @@
 Crow turns the documents on your computer into a living wiki you can chat with.<br>
 macOS · Windows · Linux</p>
 
-<p align="center"><a href="#download"><b>Download Crow 0.1.0</b></a></p>
+<p align="center"><a href="#download"><b>Download Crow 0.1.1</b></a></p>
 
 ---
 
@@ -24,26 +24,27 @@ lets you ask that wiki anything while its brain, the graph of everything you fil
 - **Chat with your knowledge.** Answers cite the notes they come from, and those notes light up in the brain.
   Follow-up questions are understood in context. Drop a file onto a folder of the brain to file it there.
 - **Your files stay yours.** Crow reads only the folders you choose. The wiki is a folder of Markdown files on your
-  computer. Your documents' text goes only to the models you pick, through your own OpenRouter account.
+  computer. Your documents' text goes only to OpenRouter and the models you pick, through your own OpenRouter account
+  (see [Privacy](#privacy)).
 
 PDF, Word, PowerPoint, Excel, OpenDocument, Markdown and plain text are read; scanned PDFs without a text layer are
 skipped.
 
 ## Download
 
-Crow 0.1.0, released 16 October 2026:
+Crow 0.1.1, released 16 October 2026:
 
 | System | For | Download | Size |
 |---|---|---|---|
-| **macOS** | Apple silicon (M1 and later) | [Crow_0.1.0_aarch64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.0/Crow_0.1.0_aarch64.dmg) | 28 MB |
-| **macOS** | Intel | [Crow_0.1.0_x64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.0/Crow_0.1.0_x64.dmg) | 30 MB |
-| **Windows** | Installer (.exe) | [Crow_0.1.0_x64-setup.exe](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.0/Crow_0.1.0_x64-setup.exe) | 27 MB |
-| **Windows** | Installer for IT (.msi) | [Crow_0.1.0_x64_en-US.msi](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.0/Crow_0.1.0_x64_en-US.msi) | 29 MB |
-| **Linux** | AppImage, any distribution | [Crow_0.1.0_amd64.AppImage](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.0/Crow_0.1.0_amd64.AppImage) | 111 MB |
-| **Linux** | Debian, Ubuntu (.deb) | [Crow_0.1.0_amd64.deb](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.0/Crow_0.1.0_amd64.deb) | 33 MB |
-| **Linux** | Fedora, openSUSE (.rpm) | [Crow-0.1.0-1.x86_64.rpm](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.0/Crow-0.1.0-1.x86_64.rpm) | 33 MB |
+| **macOS** | Apple silicon (M1 and later) | [Crow_0.1.1_aarch64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.1/Crow_0.1.1_aarch64.dmg) | 28 MB |
+| **macOS** | Intel | [Crow_0.1.1_x64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.1/Crow_0.1.1_x64.dmg) | 30 MB |
+| **Windows** | Installer (.exe) | [Crow_0.1.1_x64-setup.exe](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.1/Crow_0.1.1_x64-setup.exe) | 27 MB |
+| **Windows** | Installer for IT (.msi) | [Crow_0.1.1_x64_en-US.msi](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.1/Crow_0.1.1_x64_en-US.msi) | 29 MB |
+| **Linux** | AppImage, any distribution | [Crow_0.1.1_amd64.AppImage](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.1/Crow_0.1.1_amd64.AppImage) | 111 MB |
+| **Linux** | Debian, Ubuntu (.deb) | [Crow_0.1.1_amd64.deb](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.1/Crow_0.1.1_amd64.deb) | 33 MB |
+| **Linux** | Fedora, openSUSE (.rpm) | [Crow-0.1.1-1.x86_64.rpm](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.1/Crow-0.1.1-1.x86_64.rpm) | 33 MB |
 
-Every file of this version is on its [release page](https://github.com/crow-hq/crow-desktop/releases/tag/v0.1.0); older versions are under
+Every file of this version is on its [release page](https://github.com/crow-hq/crow-desktop/releases/tag/v0.1.1); older versions are under
 [Releases](https://github.com/crow-hq/crow-desktop/releases). Once installed, Crow updates itself from here.
 
 ## Start
@@ -80,11 +81,25 @@ OpenRouter's current prices and the real size of each document you picked, and i
 limit ($10 unless you change it). With the default model, a typical document costs a fraction of a cent; a library of
 thousands takes hours, so start with a folder or a recent date range and add more later.
 
+## Privacy
+
+Privacy depends on OpenRouter and on the model you choose. Your wiki and your chats are stored only on your computer,
+but what the models read goes to OpenRouter, which passes it on to each model's provider (the writer's and the
+classifier's): to file a document, its text, its name, where it is on your computer and the notes it may join; to
+answer a question, the question, the notes the answer draws on and the chat's earlier messages. What they keep, for
+how long, and whether they may train on it is up to [OpenRouter's privacy policy](https://openrouter.ai/privacy) and to
+each provider's own ([OpenRouter lists them](https://openrouter.ai/docs/guides/privacy/provider-logging)), which Crow
+does not control. Your [privacy settings on OpenRouter](https://openrouter.ai/settings/privacy) let you turn away
+providers that train on prompts. Choose the model with this in mind, and keep what you would not share out of the
+folders you pick.
+
 ## Something wrong?
 
 - **Logs:** Settings → About → **Open logs**.
-- **The wiki itself:** Settings → Library → **Show in Finder/Explorer**. It is a plain folder of Markdown files
-  ([the format](https://github.com/crow-hq/llm-wiki-v2#the-wiki-on-disk)).
+- **The wiki itself:** Settings → Library → **Show in Finder/Explorer**, or right-click the brain's empty space. It is
+  a plain folder of Markdown files ([the format](https://github.com/crow-hq/llm-wiki-v2#the-wiki-on-disk)).
+- **Start over:** Settings → Library → **Reset Crow…** erases the wiki, the chats and the settings, and Crow starts
+  from its first screen. Your documents stay where they are.
 - **Linux, a blank window:** start Crow with `WEBKIT_DISABLE_DMABUF_RENDERER=1`.
 - **Bugs and ideas:** [issues](https://github.com/crow-hq/crow-desktop/issues).
 
