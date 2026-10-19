@@ -9,7 +9,7 @@
 Crow turns the documents on your computer into a living wiki you can chat with.<br>
 macOS · Windows · Linux</p>
 
-<p align="center"><a href="#download"><b>Download Crow 0.1.2</b></a></p>
+<p align="center"><a href="#download"><b>Download Crow 0.1.3</b></a></p>
 
 ---
 
@@ -32,19 +32,19 @@ llm-wiki-v2 itself; a spreadsheet becomes a note per sheet. Scanned PDFs without
 
 ## Download
 
-Crow 0.1.2, released 16 October 2026:
+Crow 0.1.3, released 19 October 2026:
 
 | System | For | Download | Size |
 |---|---|---|---|
-| **macOS** | Apple silicon (M1 and later) | [Crow_0.1.2_aarch64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.2/Crow_0.1.2_aarch64.dmg) | 28 MB |
-| **macOS** | Intel | [Crow_0.1.2_x64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.2/Crow_0.1.2_x64.dmg) | 30 MB |
-| **Windows** | Installer (.exe) | [Crow_0.1.2_x64-setup.exe](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.2/Crow_0.1.2_x64-setup.exe) | 27 MB |
-| **Windows** | Installer for IT (.msi) | [Crow_0.1.2_x64_en-US.msi](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.2/Crow_0.1.2_x64_en-US.msi) | 29 MB |
-| **Linux** | AppImage, any distribution | [Crow_0.1.2_amd64.AppImage](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.2/Crow_0.1.2_amd64.AppImage) | 111 MB |
-| **Linux** | Debian, Ubuntu (.deb) | [Crow_0.1.2_amd64.deb](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.2/Crow_0.1.2_amd64.deb) | 33 MB |
-| **Linux** | Fedora, openSUSE (.rpm) | [Crow-0.1.2-1.x86_64.rpm](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.2/Crow-0.1.2-1.x86_64.rpm) | 33 MB |
+| **macOS** | Apple silicon (M1 and later) | [Crow_0.1.3_aarch64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_aarch64.dmg) | 28 MB |
+| **macOS** | Intel | [Crow_0.1.3_x64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_x64.dmg) | 30 MB |
+| **Windows** | Installer (.exe) | [Crow_0.1.3_x64-setup.exe](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_x64-setup.exe) | 27 MB |
+| **Windows** | Installer for IT (.msi) | [Crow_0.1.3_x64_en-US.msi](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_x64_en-US.msi) | 29 MB |
+| **Linux** | AppImage, any distribution | [Crow_0.1.3_amd64.AppImage](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_amd64.AppImage) | 111 MB |
+| **Linux** | Debian, Ubuntu (.deb) | [Crow_0.1.3_amd64.deb](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_amd64.deb) | 33 MB |
+| **Linux** | Fedora, openSUSE (.rpm) | [Crow-0.1.3-1.x86_64.rpm](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow-0.1.3-1.x86_64.rpm) | 33 MB |
 
-Every file of this version is on its [release page](https://github.com/crow-hq/crow-desktop/releases/tag/v0.1.2); older versions are under
+Every file of this version is on its [release page](https://github.com/crow-hq/crow-desktop/releases/tag/v0.1.3); older versions are under
 [Releases](https://github.com/crow-hq/crow-desktop/releases). Once installed, Crow updates itself from here.
 
 ## Start
