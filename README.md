@@ -15,6 +15,8 @@ and answers your questions citing the notes it used.</p>
   <a href="#faq">FAQ</a>
 </p>
 
+<p align="center"><img src="assets/gifs/ask-and-see-the-sources.gif" width="880" alt="Crow's window: a question typed into a new chat, the answer comparing two kitchen quotes with the notes it cites, and those notes lighting up in the brain, the graph of the wiki beside the chat"></p>
+
 ---
 
 **Crow is a free desktop app that turns the documents already on your computer into a second brain: a wiki of
@@ -45,6 +47,25 @@ open-source [llm-wiki-v2](https://github.com/crow-hq/llm-wiki-v2) engine and wor
 Crow reads PDF, Word (`.docx`), PowerPoint (`.pptx`), Excel (`.xlsx`), CSV, OpenDocument text and spreadsheets
 (`.odt`, `.ods`), Markdown and plain text; a spreadsheet becomes a note per sheet. Scanned PDFs without a text layer are
 skipped: Crow does no OCR yet.
+
+## See it
+
+<table>
+<tr>
+<td width="50%" valign="top"><img src="assets/gifs/the-brain-grows.gif" alt="The brain growing: notes appear next to the folders of their subjects and the graph widens as more documents are filed"><br><b>The brain grows as Crow files.</b> Each document joins the folder of its subject, and a folder that grows splits into subfolders (sped up).</td>
+<td width="50%" valign="top"><img src="assets/gifs/zoom-into-the-brain.gif" alt="Zooming into the Finance folder of a large brain: its subfolders appear with their names (Taxes, Invoices, Receipts by year and quarter), then a click on Receipts dims everything else"><br><b>Folders inside folders.</b> Zoom in and the names appear, down to the notes; click a folder to dim everything else.</td>
+</tr>
+<tr>
+<td valign="top"><img src="assets/screenshots/06-chat-with-sources.png" alt="A chat about a trip to Japan: each answer cites the notes it used, and the note under the pointer is lit in the brain"><br><b>Answers with sources.</b> Point at a cited note and it lights up in the brain; click it to read it.</td>
+<td valign="top"><img src="assets/screenshots/13-open-a-note.png" alt="A note open over the brain: a trip budget as a Markdown table, and the three documents it was filed from"><br><b>Notes you can read.</b> Plain Markdown, with the documents each note was filed from.</td>
+</tr>
+<tr>
+<td valign="top"><img src="assets/screenshots/10-big-brain.png" alt="A large brain: eight subjects in eight colours, each a tree of folders and notes"><br><b>One brain, every subject.</b> Hundreds of notes in nested folders, a colour per subject.</td>
+<td valign="top"><img src="assets/screenshots/04-cost-before-you-start.png" alt="Ready to create your wiki: 2,581 documents, about $6.71 and about 3 hours, pausing at a $10 limit"><br><b>The cost before you start,</b> from OpenRouter's prices and the size of each document.</td>
+</tr>
+</table>
+
+The screenshots show a sample wiki made up for them. [All the screenshots](assets/screenshots).
 
 ## Download
 
@@ -120,6 +141,8 @@ On Windows 10 and 11:
    or an expiry; later, Settings → OpenRouter → **Manage this key on OpenRouter** opens it again, and **Sign out** makes
    Crow forget it.
 3. Choose a model, check the cost, and start. You can chat with the wiki while it grows.
+
+<p align="center"><img src="assets/gifs/onboarding.gif" width="760" alt="Crow's first run: the welcome screen, the documents it found by folder with a date filter, connecting OpenRouter, the cost estimate, and the wiki starting to build"></p>
 
 Already have an OpenRouter key? Crow also reads `OPENROUTER_API_KEY` from the environment, or from a `.env` file
 (used when you have not signed in):
