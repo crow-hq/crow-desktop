@@ -71,7 +71,7 @@ export function useChat() {
   }, []);
 
   const send = useCallback(
-    async (text: string) => {
+    async (text: string, opts: { regenerate?: boolean } = {}) => {
       const message = text.trim();
       if (!message || busyRef.current) return;
       busyRef.current = true;
@@ -92,7 +92,7 @@ export function useChat() {
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ chat_id: activeRef.current ?? undefined, message }),
+          body: JSON.stringify({ chat_id: activeRef.current ?? undefined, message, regenerate: opts.regenerate }),
           signal: ctrl.signal,
         });
         if (!res.ok || !res.body) throw await errorFrom(res);
@@ -154,11 +154,9 @@ export function useChat() {
     if (busyRef.current) return;
     const lastUser = [...messages].reverse().find((m) => m.role === "user");
     if (!lastUser) return;
-    setMessages((ms) => {
-      const i = ms.length - 1;
-      return ms[i]?.role === "assistant" ? ms.slice(0, i) : ms;
-    });
-    void send(lastUser.content);
+    // Drop the last question and its answer: send() adds the question back and the server replaces both.
+    setMessages((ms) => ms.slice(0, ms.lastIndexOf(lastUser)));
+    void send(lastUser.content, { regenerate: true });
   }, [messages, send]);
 
   const rename = useCallback(

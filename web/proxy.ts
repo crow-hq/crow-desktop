@@ -4,6 +4,9 @@ import { isAllowedEmail } from "@/lib/supabase/server";
 
 // Refreshes the Supabase session on every request and keeps everyone but the allowed emails out.
 export async function proxy(request: NextRequest) {
+  if (process.env.NODE_ENV === "development" && request.nextUrl.pathname.startsWith("/preview")) {
+    return NextResponse.next({ request });
+  }
   let response = NextResponse.next({ request });
   const db = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
     cookies: {
@@ -20,7 +23,9 @@ export async function proxy(request: NextRequest) {
   } = await db.auth.getUser();
 
   const path = request.nextUrl.pathname;
-  const isPublic = path.startsWith("/login") || path.startsWith("/auth/");
+  // /preview is a local design preview with mock data: open in `next dev` only, never in production.
+  const isDevPreview = process.env.NODE_ENV === "development" && path.startsWith("/preview");
+  const isPublic = path.startsWith("/login") || path.startsWith("/auth/") || isDevPreview;
   if (isPublic) return response;
 
   if (!user || !isAllowedEmail(user.email)) {
@@ -34,5 +39,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|icon.png).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|icon.svg|brand/).*)"],
 };

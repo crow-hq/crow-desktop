@@ -47,7 +47,7 @@ export async function POST(req: Request) {
   if (!auth) return Response.json({ error: "Not signed in" }, { status: 401 });
   const { db } = auth;
 
-  const body = (await req.json()) as { chat_id?: string; message?: string };
+  const body = (await req.json()) as { chat_id?: string; message?: string; regenerate?: boolean };
   const message = body.message?.trim();
   if (!message) return Response.json({ error: "Empty message" }, { status: 400 });
 
@@ -67,6 +67,19 @@ export async function POST(req: Request) {
     if (error) return Response.json({ error: error.message }, { status: 500 });
     chatId = chat.id;
     chatTitle = chat.title;
+  }
+
+  if (body.regenerate) {
+    // Answer the last question again: remove it and what came after; it is stored again below.
+    const { data: last } = await db
+      .from("messages")
+      .select("created_at")
+      .eq("chat_id", chatId)
+      .eq("role", "user")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (last) await db.from("messages").delete().eq("chat_id", chatId).gte("created_at", last.created_at);
   }
 
   const { data: earlier } = await db
