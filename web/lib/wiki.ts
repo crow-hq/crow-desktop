@@ -135,6 +135,18 @@ export async function saveNote(
   const { data, error } = await query.select("id, folder_id, title, summary, content, updated_at").single();
   if (error) throw error;
   await syncLinks(db, data.id, data.content);
+  if (!note.id) {
+    // Older notes may already link to this title: [[Title]] or [[Title|label]].
+    const { data: linking } = await db
+      .from("notes")
+      .select("id, content")
+      .neq("id", data.id)
+      .ilike("content", `%[[${data.title.replace(/[%_\\]/g, "\\$&")}%`);
+    const rows = (linking ?? [])
+      .filter((n) => extractLinks(n.content).includes(data.title))
+      .map((n) => ({ from_note: n.id, to_note: data.id }));
+    if (rows.length) await db.from("note_links").upsert(rows, { ignoreDuplicates: true });
+  }
   if (sourceId) {
     await db.from("note_sources").upsert({ note_id: data.id, source_id: sourceId }, { ignoreDuplicates: true });
   }
