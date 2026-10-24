@@ -33,26 +33,26 @@ function LoginForm() {
   }
 
   return (
-    <div className="w-full max-w-sm text-center">
+    <div className="w-full max-w-sm">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/icon.png" alt="" width={64} height={64} className="mx-auto rounded-2xl" />
-      <h1 className="mt-5 text-2xl font-semibold">Crow</h1>
-      <p className="mt-1 text-sm text-muted">Your private wiki. Sign in with a link sent to your email.</p>
+      <img src="/brand/system1-logo-pink.svg" alt="System1" style={{ height: 26, width: "auto" }} className="mb-8 md:hidden" />
+      <h1 className="display text-4xl text-pink">Sign in</h1>
+      <p className="mt-2 text-base text-muted">Your System1 wiki. We email you a sign-in link.</p>
 
       {denied && (
-        <p className="mt-6 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200">
+        <p className="notice-warn mt-6 p-3 text-sm">
           That account is not allowed to use this wiki. You have been signed out.
         </p>
       )}
 
       {sent ? (
-        <div className="mt-8 rounded-2xl border border-line bg-panel p-6">
-          <Mail className="mx-auto text-accent" size={28} />
-          <h2 className="mt-3 font-medium">Check your email</h2>
+        <div className="mt-8 rounded-[10px] border border-line bg-white p-6">
+          <Mail className="text-pink" size={28} />
+          <h2 className="mt-3 text-lg font-bold">Check your email</h2>
           <p className="mt-1 text-sm text-muted">
-            We sent a sign-in link to <span className="text-fg">{email}</span>. Open it on this device.
+            We sent a sign-in link to <span className="font-bold text-ink">{email}</span>. Open it on this device.
           </p>
-          <button className="mt-4 text-sm text-accent hover:underline" onClick={() => setSent(false)}>
+          <button className="link mt-4 text-sm" onClick={() => setSent(false)}>
             Use a different email
           </button>
         </div>
@@ -61,9 +61,9 @@ function LoginForm() {
           <label htmlFor="email" className="label">
             Email
           </label>
-          <input id="email" type="email" required autoFocus autoComplete="email" className="input !py-2.5 text-base" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
-          {error && <p className="text-sm text-danger">{error}</p>}
-          <button className="btn btn-primary w-full !py-2.5" disabled={busy || !email.trim()}>
+          <input id="email" type="email" required autoFocus autoComplete="email" className="input !py-2.5 text-base" placeholder="you@system1.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+          {error && <p className="text-sm font-bold text-danger">{error}</p>}
+          <button className="btn btn-primary w-full !py-3 text-base" disabled={busy || !email.trim()}>
             {busy && <Loader2 size={16} className="animate-spin" />} Email me a link
           </button>
         </form>
@@ -74,10 +74,18 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <main className="fixed inset-0 flex items-center justify-center overflow-y-auto p-6">
-      <Suspense>
-        <LoginForm />
-      </Suspense>
+    <main className="fixed inset-0 flex flex-col bg-white md:flex-row">
+      <aside className="hidden shrink-0 flex-col justify-between bg-pink p-12 md:flex md:w-[40%]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/brand/system1-logo-white.svg" alt="System1" style={{ height: 34, width: "auto" }} className="self-start" />
+        <h2 className="display max-w-[11ch] text-6xl text-white lg:text-7xl">Your second brain, filed for you.</h2>
+        <p className="text-base font-bold text-white">System1 Wiki</p>
+      </aside>
+      <section className="flex flex-1 items-center justify-center overflow-y-auto p-6">
+        <Suspense>
+          <LoginForm />
+        </Suspense>
+      </section>
     </main>
   );
 }

@@ -5,3 +5,6 @@ node_modules
 next-env.d.ts
 *.tsbuildinfo
 .vercel
+
+# Written by next dev
+AGENTS.md

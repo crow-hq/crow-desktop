@@ -121,7 +121,7 @@ export function Brain({ graph, error, onRetry, focusFolderId, onFocusFolder, onO
     }
     for (const l of graph.links) {
       if (next.has(`n:${l.from_note}`) && next.has(`n:${l.to_note}`) && l.from_note !== l.to_note) {
-        links.push({ source: `n:${l.from_note}`, target: `n:${l.to_note}`, kind: "ref", color: "#9ca3af" });
+        links.push({ source: `n:${l.from_note}`, target: `n:${l.to_note}`, kind: "ref", color: "#BDBDBD" });
       }
     }
     cache.current = next;
@@ -154,51 +154,50 @@ export function Brain({ graph, error, onRetry, focusFolderId, onFocusFolder, onO
       const r = hl ? node.r * 2.2 : node.r;
       const x = node.x ?? 0;
       const y = node.y ?? 0;
-      ctx.globalAlpha = a;
+      ctx.globalAlpha = 1;
       ctx.beginPath();
       ctx.arc(x, y, r, 0, 2 * Math.PI);
-      ctx.fillStyle = node.color;
+      ctx.fillStyle = a < 1 ? mix(node.color, "#EAEAEA", a) : node.color;
       ctx.fill();
       if (hl || isDrop) {
         ctx.beginPath();
         ctx.arc(x, y, r + 3 / Math.sqrt(k), 0, 2 * Math.PI);
-        ctx.strokeStyle = isDrop ? "#3b82f6" : "#ffffff";
-        ctx.lineWidth = 1.6 / k;
+        ctx.strokeStyle = isDrop ? "#FCC600" : "#ED3293";
+        ctx.lineWidth = (isDrop ? 3 : 2) / k;
         ctx.stroke();
-        if (isDrop) {
-          ctx.beginPath();
-          ctx.arc(x, y, r + 10 / Math.sqrt(k), 0, 2 * Math.PI);
-          ctx.strokeStyle = "rgba(59,130,246,0.35)";
-          ctx.lineWidth = 6 / k;
-          ctx.stroke();
-        }
       }
       let label = "";
       let size = 11;
-      let color = "rgba(214,214,224,0.78)";
+      let color = "#292929";
       if (node.kind === "folder") {
         const inFocus = !!focus && focus.has(node.folderId!);
         if (node.depth === 1 || k > 1.3 || inFocus || isDrop) label = node.label;
         size = node.depth === 1 ? 13 : 11.5;
-        if (isDrop) color = "#93c5fd";
+        if (isDrop) color = "#830B4A";
       } else if (node.kind === "note") {
         if (hl) {
           label = node.label;
-          color = "#ffffff";
+          color = "#830B4A";
           size = 12;
         } else if (k > 2.4 && a > 0.5) {
           label = node.label.length > 40 ? node.label.slice(0, 39) + "…" : node.label;
           size = 10;
-          color = "rgba(190,190,205,0.8)";
+          color = "#6E6E6E";
         }
       }
       if (label) {
         const fs = size / k;
-        ctx.font = `${hl || isDrop ? 600 : 400} ${fs}px Inter, ui-sans-serif, system-ui, sans-serif`;
+        ctx.font = `${hl || isDrop ? 600 : 400} ${fs}px Aptos, Inter, Arial, sans-serif`;
         ctx.textAlign = "left";
         ctx.textBaseline = "middle";
-        ctx.fillStyle = color;
-        ctx.fillText(label, x + r + 3 / k + 1, y);
+        const lx = x + r + 3 / k + 1;
+        ctx.lineJoin = "round";
+        ctx.lineWidth = 3.5 / k;
+        ctx.strokeStyle = "#ffffff";
+        ctx.globalAlpha = 1;
+        ctx.strokeText(label, lx, y);
+        ctx.fillStyle = a < 1 ? mix(color, "#EAEAEA", a) : color;
+        ctx.fillText(label, lx, y);
       }
       ctx.globalAlpha = 1;
     },
@@ -216,11 +215,11 @@ export function Brain({ graph, error, onRetry, focusFolderId, onFocusFolder, onO
     const s = typeof l.source === "string" ? cache.current.get(l.source) : l.source;
     const t = typeof l.target === "string" ? cache.current.get(l.target) : l.target;
     const a = Math.min(s ? alphaOf(s) : 1, t ? alphaOf(t) : 1);
-    const hex = l.kind === "ref" ? "156,163,175" : hexToRgb(l.color);
-    const base = l.kind === "ref" ? 0.1 : 0.38;
+    const hex = l.kind === "ref" ? "189,189,189" : hexToRgb(l.color);
+    const base = l.kind === "ref" ? 0.35 : 0.55;
     const { highlight } = view.current;
     const hlLink = highlight.size && ((s?.noteId && highlight.has(s.noteId)) || (t?.noteId && highlight.has(t.noteId)));
-    return `rgba(${hex},${hlLink ? 0.8 : base * a})`;
+    return `rgba(${hex},${hlLink ? 0.9 : base * a})`;
   }, [alphaOf]);
 
   const configureForces = useCallback(() => {
@@ -345,7 +344,7 @@ export function Brain({ graph, error, onRetry, focusFolderId, onFocusFolder, onO
       )}
       {error && (
         <div className="absolute inset-0 flex items-center justify-center p-6">
-          <div className="max-w-sm rounded-xl border border-line bg-panel p-5 text-center">
+          <div className="max-w-sm rounded-[10px] border border-line bg-white p-5 text-center">
             <p className="text-sm text-danger">{error}</p>
             <button className="btn btn-ghost mt-3" onClick={onRetry}>
               <RefreshCw size={14} /> Try again
@@ -355,9 +354,9 @@ export function Brain({ graph, error, onRetry, focusFolderId, onFocusFolder, onO
       )}
 
       {dropFolder !== undefined && (
-        <div className="pointer-events-none absolute inset-3 flex items-start justify-center rounded-2xl border-2 border-dashed border-accent/60 bg-accent/5">
-          <div className="mt-6 rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-white shadow-lg">
-            {folderName ? `File into ${folderName}` : "Drop to add documents. Crow will pick the folders"}
+        <div className="pointer-events-none absolute inset-3 flex items-start justify-center rounded-[10px] border-2 border-dashed border-yellow bg-yellow/10">
+          <div className="mt-6 rounded-full bg-yellow px-4 py-1.5 text-sm font-bold text-ink">
+            {folderName ? `File into ${folderName}` : "Drop to add documents. the wiki picks the folders"}
           </div>
         </div>
       )}
@@ -369,4 +368,11 @@ function hexToRgb(hex: string): string {
   const h = hex.replace("#", "");
   const n = parseInt(h.length === 3 ? h.replace(/./g, (c) => c + c) : h, 16);
   return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`;
+}
+
+/** Blend hex colour `a` toward `b`; t=1 gives a, t=0 gives b. */
+function mix(a: string, b: string, t: number): string {
+  const pa = hexToRgb(a).split(",").map(Number);
+  const pb = hexToRgb(b).split(",").map(Number);
+  return `rgb(${pa.map((v, i) => Math.round(pb[i] + (v - pb[i]) * t)).join(",")})`;
 }

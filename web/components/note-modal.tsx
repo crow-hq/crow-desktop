@@ -106,12 +106,12 @@ export function NoteModal({
                 <button className="btn btn-ghost !py-1.5" onClick={() => setConfirmDelete(false)} disabled={deleting}>
                   Cancel
                 </button>
-                <button className="btn bg-red-500/90 text-white hover:bg-red-500 !py-1.5" onClick={remove} disabled={deleting}>
+                <button className="btn btn-danger-solid !py-1.5" onClick={remove} disabled={deleting}>
                   {deleting ? <Spinner size={14} /> : <Trash2 size={14} />} Delete
                 </button>
               </div>
             ) : (
-              <button className="btn btn-danger bg-raised" onClick={() => setConfirmDelete(true)} disabled={editing}>
+              <button className="btn btn-danger border border-line" onClick={() => setConfirmDelete(true)} disabled={editing}>
                 <Trash2 size={15} /> Delete note
               </button>
             )}
@@ -158,7 +158,7 @@ export function NoteModal({
               </span>
             ))}
           </div>
-          {saveError && <p className="mb-3 rounded-lg border border-red-500/30 bg-red-500/10 p-2.5 text-sm text-red-300">{saveError}</p>}
+          {saveError && <p className="notice-error mb-3 p-2.5 text-sm">{saveError}</p>}
           {editing ? (
             <div className="space-y-3">
               <input className="input text-base" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" aria-label="Title" />
@@ -185,7 +185,7 @@ export function NoteModal({
                       <FileText size={16} className="shrink-0 text-muted" />
                       <span className="truncate">{s.filename}</span>
                     </span>
-                    <a className="shrink-0 text-accent hover:underline" href={`/api/sources/${s.id}`} target="_blank" rel="noopener noreferrer">
+                    <a className="link shrink-0" href={`/api/sources/${s.id}`} target="_blank" rel="noopener noreferrer">
                       Open
                     </a>
                   </li>
@@ -199,7 +199,7 @@ export function NoteModal({
               <h3 className="label mb-3">Linked from</h3>
               <div className="flex flex-wrap gap-2">
                 {detail.backlinks.map((b) => (
-                  <button key={b.id} className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-raised px-2.5 py-1 text-sm text-zinc-200 hover:bg-hover" onClick={() => onOpenNote(b.id)}>
+                  <button key={b.id} className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1 text-sm text-ink hover:border-pink hover:bg-pink-100" onClick={() => onOpenNote(b.id)}>
                     <Link2 size={13} className="text-muted" /> {b.title}
                   </button>
                 ))}

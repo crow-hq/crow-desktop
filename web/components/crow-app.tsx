@@ -153,8 +153,8 @@ export default function CrowApp() {
         </aside>
       )}
       {sidebarOpen && !desktop && (
-        <div className="anim-fade fixed inset-0 z-40 flex bg-black/60" onMouseDown={(e) => e.target === e.currentTarget && setSidebarOpen(false)}>
-          <aside className="h-full w-[82%] max-w-[300px] border-r border-line shadow-2xl">
+        <div className="anim-fade fixed inset-0 z-40 flex bg-ink/40" onMouseDown={(e) => e.target === e.currentTarget && setSidebarOpen(false)}>
+          <aside className="h-full w-[82%] max-w-[300px] border-r border-line">
             <SidebarWithChat
               chat={chat}
               onClose={() => setSidebarOpen(false)}
@@ -180,14 +180,14 @@ export default function CrowApp() {
         />
 
         {!sidebarOpen && (
-          <button className="icon-btn absolute left-3 top-3 z-20 h-10 w-10 bg-panel/80 backdrop-blur" onClick={() => setSidebarOpen(true)} aria-label="Open sidebar">
+          <button className="icon-btn absolute left-3 top-3 z-20 h-10 w-10 border border-line bg-white" onClick={() => setSidebarOpen(true)} aria-label="Open sidebar">
             <PanelLeft size={19} />
           </button>
         )}
 
         {focusFolderId && idx.folderById.get(focusFolderId) && (
           <div className="absolute left-1/2 top-3 z-10 -translate-x-1/2">
-            <button className="rounded-full border border-line bg-panel/90 px-3.5 py-1.5 text-xs text-zinc-300 backdrop-blur hover:bg-hover" onClick={() => setFocusFolderId(null)}>
+            <button className="rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-bold text-ink hover:border-pink hover:bg-pink-100" onClick={() => setFocusFolderId(null)}>
               Focused on {idx.folderById.get(focusFolderId)!.path} · click to clear
             </button>
           </div>
@@ -195,14 +195,14 @@ export default function CrowApp() {
 
         {empty && (
           <div className="absolute inset-0 flex items-center justify-center p-6">
-            <div className="anim-pop max-w-md rounded-2xl border border-line bg-panel/95 p-7 text-center shadow-2xl">
+            <div className="anim-pop max-w-md rounded-[10px] border border-line bg-white p-7 text-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/icon.png" alt="" width={56} height={56} className="mx-auto rounded-xl" />
-              <h1 className="mt-4 text-xl font-semibold">Your wiki is empty</h1>
+              <img src="/brand/system1-symbol-on-white.svg" alt="" style={{ height: 48, width: "auto" }} className="mx-auto" />
+              <h1 className="display mt-4 text-3xl text-pink">Your wiki is empty</h1>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                Add documents and Crow reads each one, writes notes, and files them into folders. They appear here as a brain you can explore and chat with.
+                Add documents and the wiki reads each one, writes notes, and files them into folders. They appear here as a brain you can explore and chat with.
               </p>
-              <ul className="mt-4 space-y-1.5 text-left text-sm text-zinc-300">
+              <ul className="mt-4 space-y-1.5 text-left text-sm text-ink">
                 <li>Drop files or a whole folder anywhere on this window.</li>
                 <li>Or use the + next to the question box.</li>
                 <li>You always see an estimated cost before anything starts.</li>
@@ -218,7 +218,7 @@ export default function CrowApp() {
 
         {!chatOpen && (
           <button
-            className="absolute right-3 top-3 z-20 flex items-center gap-2 rounded-full border border-line bg-panel/90 px-4 py-2 text-sm backdrop-blur hover:bg-hover"
+            className="absolute right-3 top-3 z-20 flex items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-sm font-bold hover:border-pink hover:bg-pink-100"
             onClick={() => setChatOpen(true)}
           >
             <MessageSquare size={15} /> Chat
@@ -264,7 +264,7 @@ export default function CrowApp() {
           </div>
         )}
 
-        {windowDrag && <div className="pointer-events-none absolute inset-2 z-10 rounded-2xl border-2 border-dashed border-accent/30" />}
+        {windowDrag && <div className="pointer-events-none absolute inset-2 z-10 rounded-[10px] border-2 border-dashed border-yellow" />}
       </main>
 
       {addOpen && (

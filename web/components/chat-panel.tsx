@@ -44,7 +44,7 @@ export function ChatPanel(p: Props) {
   const lastAssistant = [...p.messages].reverse().find((m) => m.role === "assistant");
 
   return (
-    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-line bg-panel/95 shadow-2xl shadow-black/50 backdrop-blur">
+    <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-[10px] border border-line bg-white">
       <div className="relative flex items-center gap-2 border-b border-line px-4 py-3">
         {renaming ? (
           <input
@@ -61,7 +61,7 @@ export function ChatPanel(p: Props) {
             }}
           />
         ) : (
-          <h2 className="min-w-0 flex-1 truncate text-base font-medium">{p.title ?? "New chat"}</h2>
+          <h2 className="min-w-0 flex-1 truncate text-base font-bold">{p.title ?? "New chat"}</h2>
         )}
         {p.hasChat && !renaming && (
           <div className="relative" ref={menuRef}>
@@ -69,7 +69,7 @@ export function ChatPanel(p: Props) {
               <MoreHorizontal size={18} />
             </button>
             {menu && (
-              <div className="anim-pop absolute right-0 top-9 z-30 w-40 overflow-hidden rounded-lg border border-line bg-panel py-1 shadow-xl">
+              <div className="anim-pop absolute right-0 top-9 z-30 w-40 overflow-hidden rounded-[10px] border border-line bg-white py-1">
                 <button
                   className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-hover"
                   onClick={() => {
@@ -115,21 +115,21 @@ export function ChatPanel(p: Props) {
           </div>
         )}
         {p.error && (
-          <div className="flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
+          <div className="notice-error flex items-start gap-2 p-3 text-sm">
             <AlertCircle size={16} className="mt-0.5 shrink-0" /> {p.error}
           </div>
         )}
         {!p.loading && !p.error && p.messages.length === 0 && (
           <div className="flex h-full flex-col items-center justify-center gap-4 py-8 text-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/icon.png" alt="" width={44} height={44} className="rounded-lg opacity-90" />
+            <img src="/brand/system1-symbol-on-white.svg" alt="" style={{ height: 44, width: "auto" }} />
             <div>
-              <p className="font-medium">Ask your wiki anything</p>
+              <p className="text-2xl font-bold text-pink">Ask your wiki anything</p>
               <p className="mt-1 text-sm text-muted">Answers cite the notes they came from.</p>
             </div>
             <div className="flex flex-wrap justify-center gap-2">
               {["What is in my wiki?", "Summarise the most recent documents", "What deadlines are coming up?"].map((q) => (
-                <button key={q} className="rounded-full border border-line bg-raised px-3 py-1.5 text-xs text-zinc-300 hover:bg-hover" onClick={() => p.onSuggest(q)}>
+                <button key={q} className="rounded-full border border-line bg-white px-3 py-1.5 text-xs text-ink hover:border-pink hover:bg-pink-100" onClick={() => p.onSuggest(q)}>
                   {q}
                 </button>
               ))}
@@ -153,18 +153,18 @@ function MessageRow({ m, p, isLast }: { m: UiMessage; p: Props; isLast: boolean 
     <div className="flex gap-3">
       <div className="mt-0.5 shrink-0">
         {user ? (
-          <div className="h-7 w-7 rounded-full bg-accent" />
+          <div className="h-[22px] w-[22px] rounded-full bg-pink-100" />
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src="/icon.png" alt="" width={28} height={28} className="rounded-md" />
+          <img src="/brand/system1-symbol-on-white.svg" alt="" style={{ height: 20, width: "auto" }} />
         )}
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
-          <span className="text-sm font-semibold">{user ? "You" : "Answer"}</span>
+          <span className="text-sm font-bold">{user ? "You" : "Answer"}</span>
           <span className="text-xs text-muted">{timeAgo(m.created_at)}</span>
         </div>
-        {!user && m.search_query && <p className="mt-1 text-[13px] leading-snug text-muted">Searched for: {m.search_query}</p>}
+        {!user && m.search_query && <p className="mt-1 flex items-center gap-2 text-[13px] leading-snug text-muted"><span className="tag">Searched</span><span className="min-w-0">{m.search_query}</span></p>}
         {user ? (
           <p className="mt-0.5 whitespace-pre-wrap break-words text-[15px] leading-relaxed">{m.content}</p>
         ) : (
@@ -188,7 +188,7 @@ function MessageRow({ m, p, isLast }: { m: UiMessage; p: Props; isLast: boolean 
               )
             )}
             {m.error && (
-              <div className="mt-2 flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/10 p-2.5 text-sm text-red-300">
+              <div className="notice-error mt-2 flex items-start gap-2 p-2.5 text-sm">
                 <AlertCircle size={15} className="mt-0.5 shrink-0" /> {m.error}
               </div>
             )}

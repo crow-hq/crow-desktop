@@ -43,13 +43,13 @@ export function ModelPicker({ label, description, value, models, onChange, disab
 
   return (
     <div className="relative" ref={ref}>
-      <p className="text-sm font-medium">{label}</p>
+      <p className="text-sm font-bold">{label}</p>
       {description && <p className="mb-2 text-xs text-muted">{description}</p>}
       <button
         type="button"
         disabled={disabled}
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-3 rounded-lg border border-line bg-raised px-3 py-2.5 text-left hover:bg-hover disabled:opacity-60"
+        className="flex w-full items-center justify-between gap-3 rounded-[10px] border border-line bg-white px-3 py-2.5 text-left hover:border-pink disabled:opacity-60"
         aria-haspopup="listbox"
         aria-expanded={open}
       >
@@ -63,7 +63,7 @@ export function ModelPicker({ label, description, value, models, onChange, disab
       </button>
 
       {open && (
-        <div className="anim-pop absolute left-0 right-0 z-30 mt-1.5 overflow-hidden rounded-xl border border-line bg-panel shadow-2xl shadow-black/60">
+        <div className="anim-pop absolute left-0 right-0 z-30 mt-1.5 overflow-hidden rounded-[10px] border border-line bg-white">
           <div className="flex items-center gap-2 border-b border-line px-3">
             <Search size={15} className="text-muted" />
             <input
@@ -96,7 +96,7 @@ export function ModelPicker({ label, description, value, models, onChange, disab
               if ("custom" in r)
                 return (
                   <button key="custom" data-i={i} role="option" aria-selected={false} className={cn("block w-full px-3 py-2 text-left text-sm", cursor === i ? "bg-hover" : "")} onMouseEnter={() => setCursor(i)} onClick={() => pick(r.custom)}>
-                    Use <span className="font-mono text-accent">{r.custom}</span> as a custom id
+                    Use <span className="font-mono font-bold text-pink-dark">{r.custom}</span> as a custom id
                   </button>
                 );
               const sel = r.id === value;
@@ -111,7 +111,7 @@ export function ModelPicker({ label, description, value, models, onChange, disab
                     <br />
                     {fmtPrice(r.completion_usd_per_mtok)} out
                   </span>
-                  {sel && <Check size={15} className="shrink-0 text-accent" />}
+                  {sel && <Check size={15} className="shrink-0 text-pink" />}
                 </button>
               );
             })}

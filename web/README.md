@@ -15,55 +15,8 @@ A private, single-user LLM wiki, hosted. It is a web take on [Crow](../README.md
 
 ## Setup
 
-### 1. Create a Supabase project
-
-Create a project at [supabase.com](https://supabase.com).
-
-### 2. Create the database
-
-Run `supabase/migrations/0001_init.sql` in the SQL editor, or use `supabase db push` with the Supabase CLI. This creates the tables, row level security, the search function and the `sources` bucket.
-
-### 3. Lock down sign-in
-
-In the Supabase dashboard:
-
-- **Authentication → Sign In / Providers**: turn **off** "Allow new users to sign up". Only the people you add can sign in.
-- **Authentication → Users → Add user**: add your email.
-- **Authentication → URL Configuration**:
-  - Site URL: your Vercel URL, e.g. `https://YOUR-APP.vercel.app`.
-  - Redirect URLs: add `https://YOUR-APP.vercel.app/auth/callback` and `http://localhost:3000/auth/callback`.
-
-The app also checks signed-in emails against `ALLOWED_EMAILS`.
-
-### 4. Get an OpenRouter key
-
-Create a key at [openrouter.ai/keys](https://openrouter.ai/keys). You can set a credit limit on the key as a second safeguard.
-
-### 5. Deploy on Vercel
-
-1. Import this repository in Vercel.
-2. Set **Root Directory** to `web`.
-3. Add the environment variables from `.env.example`:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `ALLOWED_EMAILS` (your email)
-   - `OPENROUTER_API_KEY`
-   - `APP_URL` (your Vercel URL)
-4. Deploy.
-
-Filing a document can take up to a few minutes. The ingest route asks for a 300 second limit, which Vercel's Fluid compute (on by default for new projects) allows on the Hobby plan.
-
-Optionally, turn on Vercel Deployment Protection as well, so the deployment itself is behind a login.
-
-### 6. Run locally
-
-```bash
-cp .env.example .env.local   # then fill in the same values as above
-npm install
-npm run dev
-```
-
-Open http://localhost:3000.
+Deployment and configuration are documented privately, outside this repository. Nothing in it holds keys, URLs
+or account details: they live only in the hosting provider's environment settings.
 
 ## How filing works
 

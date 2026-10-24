@@ -27,12 +27,12 @@ export function Sidebar({ chats, error, activeId, onSelect, onNew, onRename, onD
   }, menuId !== null);
 
   return (
-    <div className="flex h-full w-full flex-col bg-bg">
+    <div className="flex h-full w-full flex-col bg-panel">
       <div className="flex items-center justify-between px-4 pb-2 pt-4">
         <div className="flex items-center gap-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/icon.png" alt="" width={22} height={22} className="rounded" />
-          <span className="text-sm font-semibold tracking-wide">Crow</span>
+          <img src="/brand/system1-logo-pink.svg" alt="System1" style={{ height: 22, width: "auto" }} />
+          <span className="text-sm font-bold text-ink">Wiki</span>
         </div>
         <button className="icon-btn" onClick={onClose} aria-label="Collapse sidebar" title="Collapse sidebar">
           <PanelLeft size={18} />
@@ -48,7 +48,7 @@ export function Sidebar({ chats, error, activeId, onSelect, onNew, onRename, onD
         {chats === null && (
           <div className="space-y-2 px-2.5 pt-1">
             {[0, 1, 2, 3].map((i) => (
-              <div key={i} className="h-7 animate-pulse rounded-md bg-raised" style={{ width: `${85 - i * 12}%` }} />
+              <div key={i} className="h-7 animate-pulse bg-white" style={{ width: `${85 - i * 12}%` }} />
             ))}
           </div>
         )}
@@ -72,8 +72,8 @@ export function Sidebar({ chats, error, activeId, onSelect, onNew, onRename, onD
               <button
                 onClick={() => onSelect(c.id)}
                 className={cn(
-                  "w-full truncate rounded-lg px-3 py-2 pr-9 text-left text-sm transition-colors",
-                  active ? "bg-raised text-fg" : "text-zinc-300 hover:bg-hover",
+                  "w-full truncate rounded-[10px] px-3 py-2 pr-9 text-left text-sm transition-colors",
+                  active ? "bg-pink-100 font-bold text-ink" : "text-ink hover:bg-pink-100",
                 )}
                 title={c.title}
               >
@@ -94,7 +94,7 @@ export function Sidebar({ chats, error, activeId, onSelect, onNew, onRename, onD
                 <MoreHorizontal size={16} />
               </button>
               {menuId === c.id && (
-                <div ref={menuRef} className="anim-pop absolute right-1 top-9 z-30 w-40 overflow-hidden rounded-lg border border-line bg-panel py-1 shadow-xl">
+                <div ref={menuRef} className="anim-pop absolute right-1 top-9 z-30 w-40 overflow-hidden rounded-[10px] border border-line bg-white py-1">
                   <button
                     className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-hover"
                     onClick={() => {
@@ -123,7 +123,7 @@ export function Sidebar({ chats, error, activeId, onSelect, onNew, onRename, onD
         })}
       </nav>
       <div className="border-t border-line p-2.5">
-        <Link href="/settings" className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-zinc-300 transition-colors hover:bg-hover hover:text-fg">
+        <Link href="/settings" className="flex items-center gap-3 rounded-[10px] px-3 py-2.5 text-sm font-bold text-ink transition-colors hover:bg-pink-100">
           <Settings size={18} /> Settings
         </Link>
       </div>

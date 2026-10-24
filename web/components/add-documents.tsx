@@ -85,7 +85,7 @@ export function AddDocuments({
       footer={
         <>
           <p className="hidden text-xs text-muted sm:block">Oldest files are filed first.</p>
-          <button className="btn btn-white !px-6 !py-2.5 max-sm:w-full" disabled={!files.length} onClick={onStart}>
+          <button className="btn btn-primary !px-6 !py-2.5 max-sm:w-full" disabled={!files.length} onClick={onStart}>
             Start creating <ArrowRight size={16} />
           </button>
         </>
@@ -113,7 +113,7 @@ export function AddDocuments({
         <span className="self-center text-xs text-muted">or drop them anywhere on the window</span>
       </div>
 
-      <div className="mt-5 divide-y divide-line rounded-xl border border-line bg-raised/50">
+      <div className="mt-5 divide-y divide-line rounded-[10px] border border-line bg-panel">
         <Row icon={<FileText size={20} />} title={`${files.length.toLocaleString()} document${files.length === 1 ? "" : "s"}`} sub={files.length ? fmtBytes(total) : "Nothing selected yet"} />
         <div className="flex items-center gap-4 px-4 py-3.5">
           <span className="text-muted">
@@ -127,9 +127,9 @@ export function AddDocuments({
               id="dest"
               value={staged.folderId ?? ""}
               onChange={(e) => onFolderChange(e.target.value || null)}
-              className="mt-1 block w-full rounded-md border border-line bg-bg px-2 py-1.5 text-sm text-fg focus:outline-none"
+              className="mt-1 block w-full rounded-[10px] border border-line bg-white px-2 py-1.5 text-sm text-fg focus:border-pink focus:outline-none"
             >
-              <option value="">Automatic: Crow picks the folders</option>
+              <option value="">Automatic: the wiki picks the folders</option>
               {sortedFolders.map((f) => (
                 <option key={f.id} value={f.id}>
                   {f.path}
@@ -160,7 +160,7 @@ export function AddDocuments({
                   We pause at {fmtUsd(settings.spend_limit_usd)} · {fmtUsd(settings.spent_usd)} spent so far ·{" "}
                 </>
               )}
-              <Link href="/settings" className="underline underline-offset-2 hover:text-fg">
+              <Link href="/settings" className="font-bold text-pink-dark underline-offset-2 hover:underline">
                 Change
               </Link>
             </>
@@ -172,7 +172,7 @@ export function AddDocuments({
         <Info size={14} className="mt-0.5 shrink-0" />
         <span>
           This is a rough estimate from file sizes ({writer ? writer.name : "the writer model"} writes, {router ? router.name : "the router"} decides folders). Real cost depends on how much text each document holds.
-          {overLimit && <span className="text-amber-300"> It may exceed your remaining budget of {fmtUsd(remaining!)}; filing will pause when the limit is reached.</span>}
+          {overLimit && <span className="rounded bg-warn-bg px-1 text-ink"> It may exceed your remaining budget of {fmtUsd(remaining!)}; filing will pause when the limit is reached.</span>}
         </span>
       </p>
 
@@ -190,7 +190,7 @@ export function AddDocuments({
       )}
 
       {files.length > 0 && (
-        <ul className="mt-4 max-h-44 divide-y divide-line/60 overflow-y-auto rounded-lg border border-line text-sm">
+        <ul className="mt-4 max-h-44 divide-y divide-line overflow-y-auto rounded-[10px] border border-line text-sm">
           {files.slice(0, 100).map((f, i) => (
             <li key={`${f.name}-${i}`} className="group flex items-center gap-3 px-3 py-1.5">
               <span className="min-w-0 flex-1 truncate">{f.name}</span>
@@ -212,7 +212,7 @@ function Row({ icon, title, sub }: { icon: React.ReactNode; title: React.ReactNo
     <div className="flex items-center gap-4 px-4 py-3.5">
       <span className="text-muted">{icon}</span>
       <div className="min-w-0">
-        <p className="text-[15px] font-medium">{title}</p>
+        <p className="text-[15px] font-bold">{title}</p>
         <p className="text-sm text-muted">{sub}</p>
       </div>
     </div>

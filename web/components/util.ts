@@ -2,10 +2,9 @@ import type { Folder, Graph, NoteMeta } from "@/lib/types";
 
 export const cn = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(" ");
 
-export const PALETTE = [
-  "#3b82f6", "#f87171", "#fbbf24", "#34d399", "#a78bfa", "#f472b6", "#38bdf8", "#a3e635", "#fb923c", "#2dd4bf",
-];
-export const ROOT_COLOR = "#8b8f9a";
+// System1: pink first, then the chart accents, then pink-dark and grey-600.
+export const PALETTE = ["#ED3293", "#00A9E7", "#9673B1", "#FF822D", "#92D050", "#830B4A", "#6E6E6E"];
+export const ROOT_COLOR = "#292929";
 
 export function timeAgo(iso: string): string {
   const s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);

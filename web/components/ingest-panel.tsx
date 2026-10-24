@@ -27,11 +27,11 @@ export function IngestPanel({ items, paused, limitMessage, onPause, onResume, on
   const pct = Math.round(((done + failed.length) / items.length) * 100);
 
   return (
-    <div className="anim-pop w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-panel/95 shadow-2xl shadow-black/50 backdrop-blur">
+    <div className="anim-pop w-full max-w-sm overflow-hidden rounded-[10px] border border-line bg-white">
       <div className="flex items-center gap-2 px-4 py-3">
-        {finished ? <CheckCircle2 size={18} className="text-emerald-400" /> : paused ? <Pause size={18} className="text-amber-400" /> : <Spinner />}
+        {finished ? <CheckCircle2 size={18} className="text-success" /> : paused ? <Pause size={18} className="text-ink" /> : <Spinner />}
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium">
+          <p className="text-sm font-bold">
             {finished ? "Finished" : paused ? "Paused" : "Building your wiki"} · {done} of {items.length}
           </p>
         </div>
@@ -53,13 +53,13 @@ export function IngestPanel({ items, paused, limitMessage, onPause, onResume, on
           </button>
         )}
       </div>
-      <div className="h-0.5 bg-raised">
-        <div className="h-full bg-accent transition-all" style={{ width: `${pct}%` }} />
+      <div className="h-0.5 bg-grey-200">
+        <div className="h-full bg-pink transition-all" style={{ width: `${pct}%` }} />
       </div>
       {open && (
         <div className="max-h-64 space-y-3 overflow-y-auto px-4 py-3 text-sm">
           {limitMessage && (
-            <div className="flex gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 p-2.5 text-amber-200">
+            <div className="flex gap-2 notice-warn p-2.5">
               <AlertTriangle size={15} className="mt-0.5 shrink-0" />
               <span>{limitMessage} Raise the limit in Settings, then resume.</span>
             </div>
@@ -74,8 +74,8 @@ export function IngestPanel({ items, paused, limitMessage, onPause, onResume, on
           {failed.length > 0 && (
             <div>
               <div className="mb-1.5 flex items-center justify-between">
-                <span className="label !text-red-300">{failed.length} failed</span>
-                <button className="flex items-center gap-1 text-xs text-accent hover:underline" onClick={onRetry}>
+                <span className="label !text-danger">{failed.length} failed</span>
+                <button className="link flex items-center gap-1 text-xs" onClick={onRetry}>
                   <RotateCcw size={12} /> Retry
                 </button>
               </div>
@@ -83,7 +83,7 @@ export function IngestPanel({ items, paused, limitMessage, onPause, onResume, on
                 {failed.map((x) => (
                   <li key={x.key}>
                     <p className="truncate">{x.file.name}</p>
-                    <p className="text-xs leading-snug text-red-300/90">{x.error}</p>
+                    <p className="text-xs leading-snug text-danger">{x.error}</p>
                   </li>
                 ))}
               </ul>

@@ -30,7 +30,7 @@ export function Modal({
   }, []);
   return (
     <div
-      className="anim-fade fixed inset-0 z-50 flex items-end justify-center bg-black/60 p-0 backdrop-blur-sm sm:items-center sm:p-6"
+      className="anim-fade fixed inset-0 z-50 flex items-end justify-center bg-ink/40 p-0 sm:items-center sm:p-6"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -39,12 +39,12 @@ export function Modal({
         role="dialog"
         aria-modal="true"
         className={cn(
-          "anim-pop flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-line bg-panel shadow-2xl shadow-black/60 sm:max-h-[88dvh] sm:max-w-[800px] sm:rounded-2xl",
+          "anim-pop flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-[10px] border border-line bg-white sm:max-h-[88dvh] sm:max-w-[800px] sm:rounded-[10px]",
           className,
         )}
       >
         <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-4 sm:px-7">
-          <h2 className="min-w-0 truncate text-lg font-medium">{title}</h2>
+          <h2 className="min-w-0 truncate text-lg font-bold">{title}</h2>
           <button className="icon-btn shrink-0" onClick={onClose} aria-label="Close">
             <X size={18} />
           </button>
@@ -59,7 +59,7 @@ export function Modal({
 export function Spinner({ size = 16 }: { size?: number }) {
   return (
     <span
-      className="inline-block animate-spin rounded-full border-2 border-muted/40 border-t-accent"
+      className="inline-block animate-spin rounded-full border-2 border-grey-200 border-t-pink"
       style={{ width: size, height: size }}
       role="status"
       aria-label="Loading"
