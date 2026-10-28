@@ -10,7 +10,7 @@ Crow finds your PDFs, Word files, slides and spreadsheets by itself, files them 
 and answers your questions citing the notes it used.</p>
 
 <p align="center">
-  <a href="#download"><b>Download Crow 0.1.3</b></a> ·
+  <a href="#download"><b>Download Crow 0.1.4</b></a> ·
   <a href="#install-crow-the-builds-are-not-signed-yet">Install help for macOS and Windows</a> ·
   <a href="#faq">FAQ</a>
 </p>
@@ -43,6 +43,8 @@ open-source [llm-wiki-v2](https://github.com/crow-hq/llm-wiki-v2) engine and wor
   editor, back it up, keep it in git. Your documents are never changed or moved.
 - **Works with any model, within a spending limit.** Gemini, Claude, DeepSeek or any model on OpenRouter. Crow pauses
   at your spending limit and continues where it stopped after a restart.
+- **Is the memory of your AI apps.** One button connects Claude, Claude Code, ChatGPT or Codex: they look things up in
+  your wiki, with its notes as sources, and keep what they learn in it.
 
 Crow reads PDF, Word (`.docx`), PowerPoint (`.pptx`), Excel (`.xlsx`), CSV, OpenDocument text and spreadsheets
 (`.odt`, `.ods`), Markdown and plain text; a spreadsheet becomes a note per sheet. Scanned PDFs without a text layer are
@@ -69,19 +71,19 @@ The screenshots show a sample wiki made up for them. [All the screenshots](asset
 
 ## Download
 
-Crow 0.1.3, released 19 October 2026:
+Crow 0.1.4, released 28 October 2026:
 
 | System | For | Download | Size |
 |---|---|---|---|
-| **macOS** | Apple silicon (M1 and later) | [Crow_0.1.3_aarch64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_aarch64.dmg) | 28 MB |
-| **macOS** | Intel | [Crow_0.1.3_x64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_x64.dmg) | 30 MB |
-| **Windows** | Installer (.exe) | [Crow_0.1.3_x64-setup.exe](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_x64-setup.exe) | 27 MB |
-| **Windows** | Installer for IT (.msi) | [Crow_0.1.3_x64_en-US.msi](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_x64_en-US.msi) | 29 MB |
-| **Linux** | AppImage, any distribution | [Crow_0.1.3_amd64.AppImage](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_amd64.AppImage) | 111 MB |
-| **Linux** | Debian, Ubuntu (.deb) | [Crow_0.1.3_amd64.deb](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow_0.1.3_amd64.deb) | 33 MB |
-| **Linux** | Fedora, openSUSE (.rpm) | [Crow-0.1.3-1.x86_64.rpm](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.3/Crow-0.1.3-1.x86_64.rpm) | 33 MB |
+| **macOS** | Apple silicon (M1 and later) | [Crow_0.1.4_aarch64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_aarch64.dmg) | 30 MB |
+| **macOS** | Intel | [Crow_0.1.4_x64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_x64.dmg) | 32 MB |
+| **Windows** | Installer (.exe) | [Crow_0.1.4_x64-setup.exe](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_x64-setup.exe) | 30 MB |
+| **Windows** | Installer for IT (.msi) | [Crow_0.1.4_x64_en-US.msi](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_x64_en-US.msi) | 32 MB |
+| **Linux** | AppImage, any distribution | [Crow_0.1.4_amd64.AppImage](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_amd64.AppImage) | 113 MB |
+| **Linux** | Debian, Ubuntu (.deb) | [Crow_0.1.4_amd64.deb](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_amd64.deb) | 35 MB |
+| **Linux** | Fedora, openSUSE (.rpm) | [Crow-0.1.4-1.x86_64.rpm](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow-0.1.4-1.x86_64.rpm) | 35 MB |
 
-Every file of this version is on its [release page](https://github.com/crow-hq/crow-desktop/releases/tag/v0.1.3); older versions are under
+Every file of this version is on its [release page](https://github.com/crow-hq/crow-desktop/releases/tag/v0.1.4); older versions are under
 [Releases](https://github.com/crow-hq/crow-desktop/releases). Crow gets new versions from here: Settings → About →
 **Check for updates**.
 
@@ -157,6 +159,26 @@ Already have an OpenRouter key? Crow also reads `OPENROUTER_API_KEY` from the en
 OPENROUTER_API_KEY=sk-or-v1-…
 ```
 
+## Use Crow in your AI apps
+
+Press **Connect AI apps** in Crow's sidebar, then **Connect** next to the app:
+
+| App | What Crow does | Then |
+|---|---|---|
+| Claude (desktop app) | adds itself to Claude's MCP servers; on macOS, if Claude is open, the button reads **Connect and restart** and Crow reopens Claude for you | elsewhere, quit Claude first (on Windows from its icon by the clock), then connect, then open Claude |
+| Claude Code | runs `claude mcp add` for you, for every project | start a new session |
+| ChatGPT (desktop app) | adds itself to Codex's settings, which the ChatGPT app reads; on macOS it restarts ChatGPT if it is open | elsewhere, quit ChatGPT and open it again |
+| Codex (CLI, IDE extension) | adds itself to `~/.codex/config.toml` | start a new session |
+
+From then on the app can ask your wiki (`recall`), read a note (`read_note`) and keep what it learns (`remember`): a
+decision, a fix that worked, a preference, filed by Crow like any other note. It works on macOS, Windows and Linux,
+through [MCP](https://modelcontextprotocol.io), on your computer only: the app runs Crow itself, which hands everything
+to the Crow that is running. Crow need not be open: it opens in the background the first time an app needs it.
+
+If Crow cannot connect an app (it is not installed, or its settings file is damaged), the window says why and shows the
+command or the lines to paste, with a Copy button. ChatGPT Classic and ChatGPT on the web reach only servers on the
+internet, so they cannot use Crow: the new ChatGPT app can. If you move Crow to another folder, press **Connect** again.
+
 ## Why a wiki and not RAG?
 
 Most "chat with your PDFs" tools use RAG: they cut documents into chunks, keep them in a vector database, and look
@@ -198,6 +220,10 @@ does not control. Your [privacy settings on OpenRouter](https://openrouter.ai/se
 providers that train on prompts. Choose the model with this in mind, and keep what you would not share out of the
 folders you pick.
 
+An AI app you connect (Claude, Claude Code, ChatGPT, Codex) reads what it recalls from your wiki, and sends it to its
+own provider (Anthropic or OpenAI) as part of your conversation, under that app's terms. What it asks and what it asks
+Crow to remember go to your OpenRouter model, as your own questions and documents do, at the same prices.
+
 ## FAQ
 
 ### What is a second brain?
@@ -238,9 +264,12 @@ it needs an internet connection; local models are not supported in the app yet. 
 
 ### Can my AI agents use the wiki as memory?
 
-The wiki is plain Markdown with an index in every folder, so any agent that reads files (Claude Code, Codex, Cursor
-and the like) can use it as long-term memory, and the [llm-wiki-v2](https://github.com/crow-hq/llm-wiki-v2) engine can
-serve the same wiki over HTTP.
+Yes: **Connect AI apps**, in Crow's sidebar, connects Claude, Claude Code, ChatGPT and Codex in one click each (see
+[Use Crow in your AI apps](#use-crow-in-your-ai-apps)). Any other MCP client (Cursor, VS Code…) can run the same
+local (stdio) server: Crow's own executable with the argument `mcp`, so
+`/Applications/Crow.app/Contents/MacOS/crow mcp` on macOS, `crow.exe mcp` in the folder Crow was installed in on
+Windows (usually `%LOCALAPPDATA%\Crow`), and `crow mcp`, or your AppImage's path then `mcp`, on Linux. The wiki is also
+plain Markdown with an index in every folder, so an agent that reads files can use it directly.
 
 ### How is Crow different from NotebookLM?
 
