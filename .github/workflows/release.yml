@@ -1,0 +1,202 @@
+# Crow's release, built here: GitHub's standard runners are free for a public repository, on all three systems.
+# The source stays private (crow-hq/llm-wiki-v2-app, read with SOURCE_TOKEN); only the installers, the updater's files,
+# the notes and this README are published. Run by hand: Actions → release → Run workflow, or
+#
+#   gh workflow run release -R crow-hq/crow-desktop -f ref=main
+#
+# It is the source repository's own release.yml (see there), run from here: the version after the releases already
+# out (the source's vX.Y.Z tags), the four builds, then one release here with latest.json and the README. Tag the
+# source vX.Y.Z afterwards (SOURCE_TOKEN only reads it).
+#
+# Secrets: SOURCE_TOKEN (reads crow-hq/llm-wiki-v2-app), TAURI_SIGNING_PRIVATE_KEY (and _PASSWORD if it has one).
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: The source to build (a branch, tag or commit of crow-hq/llm-wiki-v2-app)
+        default: main
+        required: true
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  SOURCE_REPO: crow-hq/llm-wiki-v2-app
+
+jobs:
+  version:
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      sha: ${{ steps.version.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SOURCE_REPO }}
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.SOURCE_TOKEN }}
+          fetch-depth: 0  # the tags of the earlier releases, for the version and what the changelog gained since
+          persist-credentials: false
+      - id: version
+        name: The version after the releases already out, and its notes
+        run: |
+          git tag --list 'v*' > released.txt
+          version="$(python3 scripts/release_version.py next < released.txt)"
+          newest="$(python3 scripts/release_version.py newest < released.txt)"
+          if [ -n "$newest" ]; then git show "v$newest:CHANGELOG.md" > before.md; else : > before.md; fi
+          python3 scripts/release_notes.py "$version" before.md > notes.md
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          { echo "## Crow $version"; echo; cat notes.md; } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: notes
+          path: notes.md
+
+  build:
+    needs: version
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest  # Apple silicon
+            target: aarch64-apple-darwin
+            arch: aarch64
+          - os: macos-15-intel  # Intel: the sidecar must be built natively
+            target: x86_64-apple-darwin
+            arch: x64
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            arch: x64
+          - os: ubuntu-22.04  # the oldest glibc still offered, so the AppImage runs on more systems
+            target: x86_64-unknown-linux-gnu
+            arch: amd64
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SOURCE_REPO }}
+          ref: ${{ needs.version.outputs.sha }}
+          token: ${{ secrets.SOURCE_TOKEN }}
+          persist-credentials: false
+      - if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev libssl-dev
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: pnpm install --frozen-lockfile
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: false  # a release must not restore a cache an earlier run could have poisoned
+      - name: This release's version, in the manifests
+        run: uv run --no-project --python 3.12 python scripts/release_version.py apply "$VERSION"
+      - run: uv run --no-project --python 3.12 python scripts/build_backend.py
+      - run: uv run --no-project --python 3.12 python scripts/smoke_backend.py
+      - run: uv run --no-project --python 3.12 python scripts/third_party_licenses.py
+      - name: The installers, signed for the updater
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        run: |
+          umask 022  # .deb file modes follow the build's umask
+          pnpm tauri build --target "${{ matrix.target }}" --config src-tauri/tauri.release.json
+      - name: The files to publish, named for the release
+        run: |
+          mkdir out
+          find "src-tauri/target/${{ matrix.target }}/release/bundle" -maxdepth 2 -type f \( -name '*.dmg' \
+              -o -name '*.app.tar.gz' -o -name '*.app.tar.gz.sig' -o -name '*.msi' -o -name '*.msi.sig' \
+              -o -name '*-setup.exe' -o -name '*-setup.exe.sig' -o -name '*.AppImage' -o -name '*.AppImage.sig' \
+              -o -name '*.deb' -o -name '*.deb.sig' -o -name '*.rpm' -o -name '*.rpm.sig' \) |
+            while read -r file; do
+              name="$(basename "$file")"
+              # Tauri names the macOS update Crow.app.tar.gz on both architectures.
+              name="${name/#Crow.app.tar.gz/Crow_${VERSION}_${{ matrix.arch }}.app.tar.gz}"
+              cp "$file" "out/$name"
+            done
+          ls -l out
+          ls out | grep -q '\.sig$' || { echo "::error::no updater signature: check TAURI_SIGNING_PRIVATE_KEY"; exit 1; }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: crow-${{ matrix.target }}
+          path: out/
+          retention-days: 14
+          if-no-files-found: error
+
+  publish:
+    needs: [version, build]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write  # the release and the README, here
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+      TAG: v${{ needs.version.outputs.version }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SOURCE_REPO }}
+          ref: ${{ needs.version.outputs.sha }}
+          token: ${{ secrets.SOURCE_TOKEN }}
+          path: source
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          path: site
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: crow-*
+          path: dist
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: notes
+      - name: latest.json, from every build's signatures
+        run: |
+          python3 source/scripts/release_updater_json.py "$VERSION" notes.md dist \
+            "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG" \
+            --expect darwin-aarch64,darwin-x86_64,linux-x86_64,windows-x86_64 > latest.json
+          ls -l dist latest.json
+      - name: The release
+        run: |
+          # A release already out with this tag is never touched; drafts of a failed run go.
+          if [ "$(gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft 2>/dev/null)" = "false" ]; then
+            echo "$TAG is out already"
+            exit 0
+          fi
+          for id in $(gh api "repos/$GITHUB_REPOSITORY/releases" --paginate --jq ".[] | select(.draft and .tag_name == \"$TAG\") | .id"); do
+            gh api -X DELETE "repos/$GITHUB_REPOSITORY/releases/$id"
+          done
+          gh release create "$TAG" dist/* latest.json -R "$GITHUB_REPOSITORY" --draft --target main \
+            --title "Crow $VERSION" --notes-file notes.md
+          gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --draft=false --latest
+      - name: The README names it
+        run: |
+          gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json tagName,url,publishedAt,assets > release.json
+          python3 source/scripts/release_readme.py release.json site/README.md
+          cp source/src-tauri/icons/128x128@2x.png site/crow.png
+          cd site
+          git add README.md crow.png
+          if git diff --cached --quiet; then echo "the README already names $TAG"; exit 0; fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Crow $VERSION"
+          git push
