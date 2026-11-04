@@ -10,7 +10,7 @@ Crow finds your PDFs, Word files, slides and spreadsheets by itself, files them 
 and answers your questions citing the notes it used.</p>
 
 <p align="center">
-  <a href="#download"><b>Download Crow 0.1.4</b></a> ·
+  <a href="#download"><b>Download Crow 0.1.5</b></a> ·
   <a href="#install-crow-the-builds-are-not-signed-yet">Install help for macOS and Windows</a> ·
   <a href="#faq">FAQ</a>
 </p>
@@ -71,19 +71,19 @@ The screenshots show a sample wiki made up for them. [All the screenshots](asset
 
 ## Download
 
-Crow 0.1.4, released 28 October 2026:
+Crow 0.1.5, released 4 November 2026:
 
 | System | For | Download | Size |
 |---|---|---|---|
-| **macOS** | Apple silicon (M1 and later) | [Crow_0.1.4_aarch64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_aarch64.dmg) | 30 MB |
-| **macOS** | Intel | [Crow_0.1.4_x64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_x64.dmg) | 32 MB |
-| **Windows** | Installer (.exe) | [Crow_0.1.4_x64-setup.exe](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_x64-setup.exe) | 30 MB |
-| **Windows** | Installer for IT (.msi) | [Crow_0.1.4_x64_en-US.msi](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_x64_en-US.msi) | 32 MB |
-| **Linux** | AppImage, any distribution | [Crow_0.1.4_amd64.AppImage](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_amd64.AppImage) | 113 MB |
-| **Linux** | Debian, Ubuntu (.deb) | [Crow_0.1.4_amd64.deb](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow_0.1.4_amd64.deb) | 35 MB |
-| **Linux** | Fedora, openSUSE (.rpm) | [Crow-0.1.4-1.x86_64.rpm](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.4/Crow-0.1.4-1.x86_64.rpm) | 35 MB |
+| **macOS** | Apple silicon (M1 and later) | [Crow_0.1.5_aarch64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_aarch64.dmg) | 30 MB |
+| **macOS** | Intel | [Crow_0.1.5_x64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_x64.dmg) | 32 MB |
+| **Windows** | Installer (.exe) | [Crow_0.1.5_x64-setup.exe](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_x64-setup.exe) | 30 MB |
+| **Windows** | Installer for IT (.msi) | [Crow_0.1.5_x64_en-US.msi](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_x64_en-US.msi) | 32 MB |
+| **Linux** | AppImage, any distribution | [Crow_0.1.5_amd64.AppImage](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_amd64.AppImage) | 113 MB |
+| **Linux** | Debian, Ubuntu (.deb) | [Crow_0.1.5_amd64.deb](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_amd64.deb) | 35 MB |
+| **Linux** | Fedora, openSUSE (.rpm) | [Crow-0.1.5-1.x86_64.rpm](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow-0.1.5-1.x86_64.rpm) | 35 MB |
 
-Every file of this version is on its [release page](https://github.com/crow-hq/crow-desktop/releases/tag/v0.1.4); older versions are under
+Every file of this version is on its [release page](https://github.com/crow-hq/crow-desktop/releases/tag/v0.1.5); older versions are under
 [Releases](https://github.com/crow-hq/crow-desktop/releases). Crow gets new versions from here: Settings → About →
 **Check for updates**.
 
