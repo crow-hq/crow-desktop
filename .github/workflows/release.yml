@@ -8,6 +8,14 @@
 # out (the source's vX.Y.Z tags), the four builds, then one release here with latest.json and the README. Tag the
 # source vX.Y.Z afterwards (SOURCE_TOKEN only reads it).
 #
+# A test build, for testers before everyone: run it from a branch of this repository with test=true,
+#
+#   gh workflow run release -R crow-hq/crow-desktop --ref release/1.0.0 -f ref=<source commit> -f test=true
+#
+# and the release is a pre-release (the updater and the website only offer the latest release, so nobody gets it by
+# chance), with the README on that branch. Another test run of the same version replaces its files. Merging the branch
+# into main publishes it (promote.yml); tag the source then.
+#
 # Secrets: SOURCE_TOKEN (reads crow-hq/llm-wiki-v2-app), TAURI_SIGNING_PRIVATE_KEY (and _PASSWORD if it has one).
 name: release
 
@@ -18,6 +26,10 @@ on:
         description: The source to build (a branch, tag or commit of crow-hq/llm-wiki-v2-app)
         default: main
         required: true
+      test:
+        description: A test build (a pre-release, run from a branch; merging the branch into main publishes it)
+        type: boolean
+        default: false
 
 concurrency:
   group: release
@@ -36,6 +48,11 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       sha: ${{ steps.version.outputs.sha }}
     steps:
+      - name: A test build runs from a branch (its README is the branch's, not main's)
+        if: inputs.test && github.ref_name == 'main'
+        run: |
+          echo "::error::run a test build from a branch: gh workflow run release --ref <branch> -f test=true"
+          exit 1
       - uses: actions/checkout@v4
         with:
           repository: ${{ env.SOURCE_REPO }}
@@ -177,18 +194,35 @@ jobs:
             --expect darwin-aarch64,darwin-x86_64,linux-x86_64,windows-x86_64 > latest.json
           ls -l dist latest.json
       - name: The release
+        env:
+          TEST: ${{ inputs.test }}
         run: |
-          # A release already out with this tag is never touched; drafts of a failed run go.
-          if [ "$(gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft 2>/dev/null)" = "false" ]; then
+          # A release already out with this tag is never touched; drafts of a failed run go. A test build (a
+          # pre-release) gets the files of the run after it: another test, or the release itself.
+          state="$(gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json isDraft,isPrerelease \
+            --jq 'if .isDraft then "draft" elif .isPrerelease then "test" else "out" end' 2>/dev/null || true)"
+          if [ "$state" = "out" ]; then
             echo "$TAG is out already"
+            exit 0
+          fi
+          if [ "$state" = "test" ]; then
+            gh release upload "$TAG" dist/* latest.json -R "$GITHUB_REPOSITORY" --clobber
+            gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --notes-file notes.md
+            if [ "$TEST" != "true" ]; then gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --prerelease=false --latest; fi
             exit 0
           fi
           for id in $(gh api "repos/$GITHUB_REPOSITORY/releases" --paginate --jq ".[] | select(.draft and .tag_name == \"$TAG\") | .id"); do
             gh api -X DELETE "repos/$GITHUB_REPOSITORY/releases/$id"
           done
-          gh release create "$TAG" dist/* latest.json -R "$GITHUB_REPOSITORY" --draft --target main \
-            --title "Crow $VERSION" --notes-file notes.md
-          gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --draft=false --latest
+          if [ "$TEST" = "true" ]; then
+            gh release create "$TAG" dist/* latest.json -R "$GITHUB_REPOSITORY" --draft --prerelease \
+              --target "$GITHUB_REF_NAME" --title "Crow $VERSION" --notes-file notes.md
+            gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --draft=false --latest=false
+          else
+            gh release create "$TAG" dist/* latest.json -R "$GITHUB_REPOSITORY" --draft --target main \
+              --title "Crow $VERSION" --notes-file notes.md
+            gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --draft=false --latest
+          fi
       - name: The README names it
         run: |
           gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json tagName,url,publishedAt,assets > release.json

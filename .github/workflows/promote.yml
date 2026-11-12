@@ -1,0 +1,35 @@
+# Merging a test build's branch into main publishes it: the pre-release its README names becomes the latest release,
+# the one Crow's updater and the website offer. A release already out is left as it is. See release.yml.
+name: promote
+
+on:
+  push:
+    branches: [main]
+    paths: [README.md]
+  workflow_dispatch:
+
+permissions:
+  contents: write  # the release's state
+
+jobs:
+  promote:
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: The pre-release the README names, published
+        run: |
+          tag="$(grep -oE 'releases/download/v[0-9][^/]*/' README.md | head -1 | cut -d/ -f3)"
+          if [ -z "$tag" ]; then
+            echo "the README names no release"
+            exit 0
+          fi
+          if [ "$(gh release view "$tag" -R "$GITHUB_REPOSITORY" --json isPrerelease --jq .isPrerelease)" != "true" ]; then
+            echo "$tag is out already"
+            exit 0
+          fi
+          gh release edit "$tag" -R "$GITHUB_REPOSITORY" --prerelease=false --latest
+          echo "Crow ${tag#v} is out: the updater and the website offer it from now on." >> "$GITHUB_STEP_SUMMARY"
