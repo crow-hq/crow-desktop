@@ -44,8 +44,10 @@ account and nothing leaving it.
   editor, back it up, keep it in git. Your documents are never changed or moved.
 - **Works with any model, within a spending limit.** Gemini, Claude, DeepSeek or any model on OpenRouter. Crow pauses
   at your spending limit and continues where it stopped after a restart.
-- **Or runs fully offline, for free.** Choose **On this computer** and one button downloads Crow's local models: no
-  account, no terminal, nothing to configure, and no document or question leaves your computer.
+- **Or runs fully offline, for free (beta).** Choose **On this computer** and one button downloads Crow's local
+  models: no account, no terminal, nothing to configure, and no document or question leaves your computer.
+- **Lets you organise it by hand.** Drag a note onto a folder, or a folder into another, right in the brain; make
+  folders and change their names and descriptions. When a note fits no folder, Crow asks you where it goes.
 - **Is the memory of your AI apps.** One button connects Claude, Claude Code, ChatGPT or Codex: they look things up in
   your wiki, with its notes as sources, and keep what they learn in it.
 
@@ -305,6 +307,7 @@ expected; [Install Crow](#install-crow-the-builds-are-not-signed-yet) shows how 
   from its first screen. Your documents stay where they are.
 - **Linux, a blank window:** start Crow with `WEBKIT_DISABLE_DMABUF_RENDERER=1`.
 - **Bugs and ideas:** [issues](https://github.com/crow-hq/crow-desktop/issues).
+- **Help:** write to [support@crowllmwiki.com](mailto:support@crowllmwiki.com) (also in Settings → About).
 
 ## Credits and license
 
