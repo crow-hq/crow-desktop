@@ -10,7 +10,7 @@ Crow finds your PDFs, Word files, slides and spreadsheets by itself, files them 
 and answers your questions citing the notes it used.</p>
 
 <p align="center">
-  <a href="#download"><b>Download Crow 0.1.5</b></a> ·
+  <a href="#download"><b>Download Crow 1.0.0</b></a> ·
   <a href="#install-crow-the-builds-are-not-signed-yet">Install help for macOS and Windows</a> ·
   <a href="#faq">FAQ</a>
 </p>
@@ -24,7 +24,8 @@ Markdown notes, filed by topic and linked to each other, that you can chat with.
 [LLM wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) idea Andrej Karpathy described, built for
 thousands of documents and for people who would rather not use a terminal. It runs the CROW architecture of the
 open-source [llm-wiki-v2](https://github.com/crow-hq/llm-wiki-v2) engine and works with any model on
-[OpenRouter](https://openrouter.ai), through your own account.
+[OpenRouter](https://openrouter.ai), through your own account, or with local models that run on your computer, with no
+account and nothing leaving it.
 
 ## What Crow does
 
@@ -43,6 +44,10 @@ open-source [llm-wiki-v2](https://github.com/crow-hq/llm-wiki-v2) engine and wor
   editor, back it up, keep it in git. Your documents are never changed or moved.
 - **Works with any model, within a spending limit.** Gemini, Claude, DeepSeek or any model on OpenRouter. Crow pauses
   at your spending limit and continues where it stopped after a restart.
+- **Or runs fully offline, for free (beta).** Choose **On this computer** and one button downloads Crow's local
+  models: no account, no terminal, nothing to configure, and no document or question leaves your computer.
+- **Lets you organise it by hand.** Drag a note onto a folder, or a folder into another, right in the brain; make
+  folders and change their names and descriptions. When a note fits no folder, Crow asks you where it goes.
 - **Is the memory of your AI apps.** One button connects Claude, Claude Code, ChatGPT or Codex: they look things up in
   your wiki, with its notes as sources, and keep what they learn in it.
 
@@ -71,19 +76,19 @@ The screenshots show a sample wiki made up for them. [All the screenshots](asset
 
 ## Download
 
-Crow 0.1.5, released 4 November 2026:
+Crow 1.0.0, released 12 November 2026:
 
 | System | For | Download | Size |
 |---|---|---|---|
-| **macOS** | Apple silicon (M1 and later) | [Crow_0.1.5_aarch64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_aarch64.dmg) | 30 MB |
-| **macOS** | Intel | [Crow_0.1.5_x64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_x64.dmg) | 32 MB |
-| **Windows** | Installer (.exe) | [Crow_0.1.5_x64-setup.exe](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_x64-setup.exe) | 30 MB |
-| **Windows** | Installer for IT (.msi) | [Crow_0.1.5_x64_en-US.msi](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_x64_en-US.msi) | 32 MB |
-| **Linux** | AppImage, any distribution | [Crow_0.1.5_amd64.AppImage](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_amd64.AppImage) | 113 MB |
-| **Linux** | Debian, Ubuntu (.deb) | [Crow_0.1.5_amd64.deb](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow_0.1.5_amd64.deb) | 35 MB |
-| **Linux** | Fedora, openSUSE (.rpm) | [Crow-0.1.5-1.x86_64.rpm](https://github.com/crow-hq/crow-desktop/releases/download/v0.1.5/Crow-0.1.5-1.x86_64.rpm) | 35 MB |
+| **macOS** | Apple silicon (M1 and later) | [Crow_1.0.0_aarch64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v1.0.0/Crow_1.0.0_aarch64.dmg) | 31 MB |
+| **macOS** | Intel | [Crow_1.0.0_x64.dmg](https://github.com/crow-hq/crow-desktop/releases/download/v1.0.0/Crow_1.0.0_x64.dmg) | 33 MB |
+| **Windows** | Installer (.exe) | [Crow_1.0.0_x64-setup.exe](https://github.com/crow-hq/crow-desktop/releases/download/v1.0.0/Crow_1.0.0_x64-setup.exe) | 30 MB |
+| **Windows** | Installer for IT (.msi) | [Crow_1.0.0_x64_en-US.msi](https://github.com/crow-hq/crow-desktop/releases/download/v1.0.0/Crow_1.0.0_x64_en-US.msi) | 32 MB |
+| **Linux** | AppImage, any distribution | [Crow_1.0.0_amd64.AppImage](https://github.com/crow-hq/crow-desktop/releases/download/v1.0.0/Crow_1.0.0_amd64.AppImage) | 119 MB |
+| **Linux** | Debian, Ubuntu (.deb) | [Crow_1.0.0_amd64.deb](https://github.com/crow-hq/crow-desktop/releases/download/v1.0.0/Crow_1.0.0_amd64.deb) | 41 MB |
+| **Linux** | Fedora, openSUSE (.rpm) | [Crow-1.0.0-1.x86_64.rpm](https://github.com/crow-hq/crow-desktop/releases/download/v1.0.0/Crow-1.0.0-1.x86_64.rpm) | 41 MB |
 
-Every file of this version is on its [release page](https://github.com/crow-hq/crow-desktop/releases/tag/v0.1.5); older versions are under
+Every file of this version is on its [release page](https://github.com/crow-hq/crow-desktop/releases/tag/v1.0.0); older versions are under
 [Releases](https://github.com/crow-hq/crow-desktop/releases). Crow gets new versions from here: Settings → About →
 **Check for updates**.
 
@@ -203,14 +208,19 @@ wiki. These are the authors' own measurements; the scripts are in
 
 ## What it costs
 
-Crow is free. You pay OpenRouter for the models it uses. Before filing starts, Crow estimates the cost from
+Crow is free. With local models (choose **On this computer** on the Connect screen) nothing else is paid either. With
+OpenRouter, you pay OpenRouter for the models Crow uses. Before filing starts, Crow estimates the cost from
 OpenRouter's current prices and the real size of each document you picked, and it stops on its own at your spending
 limit ($10 unless you change it). With the default model, a typical document costs a fraction of a cent; a library of
 thousands takes hours, so start with a folder or a recent date range and add more later.
 
 ## Privacy
 
-Privacy depends on OpenRouter and on the model you choose. Your wiki and your chats are stored only on your computer,
+With local models, the documents, the notes and the questions stay on your computer: the models run there, and Crow
+contacts the internet only to download the model package (from GitHub and Ollama's registry) and to look for its own
+updates.
+
+With OpenRouter, privacy depends on OpenRouter and on the model you choose. Your wiki and your chats are stored only on your computer,
 but what the models read goes to OpenRouter, which passes it on to each model's provider (the writer's and the
 classifier's): to file a document, its text, its name, where it is on your computer and the notes it may join; to
 answer a question, the question, the notes the answer draws on and the chat's earlier messages. What they keep, for
@@ -222,7 +232,8 @@ folders you pick.
 
 An AI app you connect (Claude, Claude Code, ChatGPT, Codex) reads what it recalls from your wiki, and sends it to its
 own provider (Anthropic or OpenAI) as part of your conversation, under that app's terms. What it asks and what it asks
-Crow to remember go to your OpenRouter model, as your own questions and documents do, at the same prices.
+Crow to remember go to the models Crow uses (your OpenRouter model, at the same prices, or the local ones), as your own
+questions and documents do.
 
 ## FAQ
 
@@ -253,14 +264,19 @@ need Obsidian.
 
 It never changes or moves them: Crow reads the folders you choose and keeps a copy of each document's text inside the
 wiki. Deleting a note, or resetting Crow, never touches your documents. To file a document, its text goes to the model
-you chose through OpenRouter (see [Privacy](#privacy)).
+you chose through OpenRouter, or to no one with local models (see [Privacy](#privacy)).
 
 ### Which AI models can I use? Can I run it offline or with Ollama?
 
-Gemini 3.8 Flash (the default), Claude Sonnet 5.5, DeepSeek V4.1 Flash, or any other model on OpenRouter, under
-Advanced settings; a small classifier model, Jev, decides where each document goes. Crow works through OpenRouter, so
-it needs an internet connection; local models are not supported in the app yet. The
-[llm-wiki-v2](https://github.com/crow-hq/llm-wiki-v2) engine runs with Ollama from the command line.
+On OpenRouter: Gemini 3.8 Flash (the default), Claude Sonnet 5.5, DeepSeek V4.1 Flash, or any other model, under
+Advanced settings; a small classifier model, Jev, decides where each document goes.
+
+Offline, since Crow 1.0: choose **On this computer** on the Connect screen. One button downloads Crow's local model
+package (Ollama and three small open models: LFM3 1.7B, Tev1 0.8B and EmbeddingGemma 2; 2.6 to 4 GB depending on the
+system) into Crow's own folder; you install and configure nothing, and a copy of Ollama you already run is left alone.
+After the download Crow needs no internet connection, no account and no payment. It runs on any Mac, Windows or Linux
+computer: fast on Apple silicon or with a graphics card, slower on the processor alone. The notes are plainer than a
+cloud model's, so Crow first asks a few questions and creates the wiki's first folders from your answers.
 
 ### Can my AI agents use the wiki as memory?
 
@@ -275,7 +291,7 @@ plain Markdown with an index in every folder, so an agent that reads files can u
 
 NotebookLM works on the sources you upload to it, notebook by notebook, in Google's cloud. Crow finds the documents on
 your computer by itself and writes one wiki of Markdown files that stays on your computer, which you can read, edit and
-keep, with the models you choose through OpenRouter.
+keep, with the models you choose through OpenRouter, or with local models and no cloud at all.
 
 ### Why does my Mac or PC say Crow can't be verified?
 
@@ -291,6 +307,7 @@ expected; [Install Crow](#install-crow-the-builds-are-not-signed-yet) shows how 
   from its first screen. Your documents stay where they are.
 - **Linux, a blank window:** start Crow with `WEBKIT_DISABLE_DMABUF_RENDERER=1`.
 - **Bugs and ideas:** [issues](https://github.com/crow-hq/crow-desktop/issues).
+- **Help:** write to [support@crowllmwiki.com](mailto:support@crowllmwiki.com) (also in Settings → About).
 
 ## Credits and license
 
