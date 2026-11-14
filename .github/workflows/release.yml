@@ -16,6 +16,10 @@
 # chance), with the README on that branch. Another test run of the same version replaces its files. Merging the branch
 # into main publishes it (promote.yml); tag the source then.
 #
+# Windows also packs the Microsoft Store variant, unsigned, for Partner Center: a run artifact (msstore-package), never
+# published here, built only once the MSSTORE_* variables hold the identity Partner Center reserved; MSSTORE_URL, the
+# Store page once Crow is published there, adds a row to the README (the source's docs/microsoft-store.md).
+#
 # Secrets: SOURCE_TOKEN (reads crow-hq/llm-wiki-v2-app), TAURI_SIGNING_PRIVATE_KEY (and _PASSWORD if it has one).
 name: release
 
@@ -158,6 +162,28 @@ jobs:
           path: out/
           retention-days: 14
           if-no-files-found: error
+      - name: The Microsoft Store package, unsigned (the Store signs it), once its identity is set
+        if: runner.os == 'Windows'
+        env:
+          VITE_CROW_STORE: msstore
+          MSSTORE_NAME: ${{ vars.MSSTORE_IDENTITY_NAME }}
+          MSSTORE_PUBLISHER: ${{ vars.MSSTORE_PUBLISHER }}
+          MSSTORE_PUBLISHER_NAME: ${{ vars.MSSTORE_PUBLISHER_DISPLAY_NAME }}
+        run: |
+          if [ -z "$MSSTORE_NAME" ] || [ -z "$MSSTORE_PUBLISHER" ] || [ -z "$MSSTORE_PUBLISHER_NAME" ]; then
+            echo "::notice::No Store package: set the MSSTORE_IDENTITY_NAME, MSSTORE_PUBLISHER and MSSTORE_PUBLISHER_DISPLAY_NAME variables"
+            exit 0
+          fi
+          pnpm tauri build --target "${{ matrix.target }}" --no-bundle --features msstore --config src-tauri/tauri.msstore.json
+          uv run --python 3.12 scripts/build_msix.py --exe "src-tauri/target/${{ matrix.target }}/release/crow.exe" \
+            --out msstore --name "$MSSTORE_NAME" --publisher "$MSSTORE_PUBLISHER" --publisher-display-name "$MSSTORE_PUBLISHER_NAME"
+      - if: runner.os == 'Windows' && hashFiles('msstore/*.msix') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: msstore-package  # not crow-*: publish leaves it out; it is uploaded to Partner Center by hand
+          path: msstore/*.msix
+          retention-days: 30
+          if-no-files-found: error
 
   publish:
     needs: [version, build]
@@ -224,6 +250,8 @@ jobs:
             gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --draft=false --latest
           fi
       - name: The README names it
+        env:
+          MSSTORE_URL: ${{ vars.MSSTORE_URL }}  # the Store page, once Crow is published there: a row in the table
         run: |
           gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json tagName,url,publishedAt,assets > release.json
           python3 source/scripts/release_readme.py release.json site/README.md
