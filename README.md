@@ -35,8 +35,11 @@ account and nothing leaving it.
 - **Files them into a wiki that organizes itself.** Each document becomes a note in a folder about its subject. A new
   document on a subject updates the note already there instead of adding a copy, and a folder that grows is split into
   subfolders. Filing goes oldest first, so the newest facts win; files already filed, and duplicates, cost nothing again.
-- **Lets you chat with your documents, with sources.** Answers cite the notes they come from, and those notes light up
-  in the brain, the graph of everything you filed. Follow-up questions are understood in context.
+- **Lets you chat with your documents, with sources.** Answers appear as they are written, with the notes they come
+  from listed under them, and those notes light up in the brain, the graph of everything you filed. Follow-up questions
+  are understood in context.
+- **Speaks English and Italian.** Settings → Language switches the whole app, and an answer is written in the language
+  of the question.
 - **Remembers.** A chat forgets when it ends; the wiki doesn't. Every document you add makes the notes you already
   have better, and you can drop a new file onto a folder of the brain to file it there.
 - **Keeps it in plain Markdown you own.** The wiki is a folder of Markdown files on your computer, in Google's
@@ -149,6 +152,9 @@ keeps it up to date. The installer below works too, on Windows 10 and 11:
    or an expiry; later, Settings → OpenRouter → **Manage this key on OpenRouter** opens it again, and **Sign out** makes
    Crow forget it.
 3. Choose a model, check the cost, and start. You can chat with the wiki while it grows.
+
+No OpenRouter account? On the Connect screen choose **On this computer** (beta): one button downloads Crow's local
+models, and nothing is paid (see [Which AI models can I use?](#which-ai-models-can-i-use-can-i-run-it-offline-or-with-ollama)).
 
 <p align="center"><img src="assets/gifs/onboarding.gif" width="760" alt="Crow's first run: the welcome screen, the documents it found by folder with a date filter, connecting OpenRouter, the cost estimate, and the wiki starting to build"></p>
 
@@ -269,8 +275,8 @@ you chose through OpenRouter, or to no one with local models (see [Privacy](#pri
 
 ### Which AI models can I use? Can I run it offline or with Ollama?
 
-On OpenRouter: Gemini 3.8 Flash (the default), Claude Sonnet 5.5, DeepSeek V4.1 Flash, or any other model, under
-Advanced settings; a small classifier model, Jev, decides where each document goes.
+On OpenRouter: DeepSeek V4.1 Flash (the default since Crow 1.0.1), Gemini 3.8 Flash, Claude Sonnet 5.5, or any other
+model, under Advanced settings; a small classifier model, Jev, decides where each document goes.
 
 Offline, since Crow 1.0: choose **On this computer** on the Connect screen. One button downloads Crow's local model
 package (Ollama and three small open models: LFM3 1.7B, Tev1 0.8B and EmbeddingGemma 2; 2.6 to 4 GB depending on the
